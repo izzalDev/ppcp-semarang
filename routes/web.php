@@ -31,4 +31,11 @@ Route::prefix('auth')->middleware('guest')->group(function (){
 Route::prefix('profile')->middleware('auth')->group(function (){
     Route::get('/',[ProfileInformationController::class, 'show'])->name('profile');
     Route::put('/update-information',[ProfileInformationController::class, 'update'])->name('profile-information.update');
+    Route::put('/update-password',[NewPasswordController::class, 'update'])->name('profile-password.update');
+    Route::delete('/logout-other-browser', [\App\Http\Controllers\OtherBrowserSessionController::class, 'destroy'])->name('logout-other-browser');
+    Route::put('/update-photo',[\App\Http\Controllers\PhotoProfileController::class, 'update'])->name('photo-profile.post');
+});
+
+Route::prefix('assets')->middleware('auth')->group(function (){
+    Route::get('/profile-picture/{filename}',[\App\Http\Controllers\PhotoProfileController::class,'show'])->name('photo-profile.show');
 });

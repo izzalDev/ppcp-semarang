@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\CurrentPassword;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class NewPasswordController extends Controller
@@ -46,5 +48,19 @@ class NewPasswordController extends Controller
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function update(Request $request){
+        $request->validate([
+            'current_password' => ['required', new CurrentPassword],
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+        auth()->user()->update(['password'=>Hash::make($request->input('password'))]);
+        return back()->with('success','Your password has been updated');
     }
 }

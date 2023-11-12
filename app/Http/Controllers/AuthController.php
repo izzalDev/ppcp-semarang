@@ -22,9 +22,8 @@ class AuthController extends Controller
         $remember = $request->input('remember');
         if (Auth::attempt($credentials,$remember)){
             $request->session()->regenerate();
-            return 'Berhasil login';
+            return redirect('/profile');
         }
-        $request->session()->flash('messages','your email or password is invalid on flash');
         return back()->with('message','Your email or password is invalid');
     }
 

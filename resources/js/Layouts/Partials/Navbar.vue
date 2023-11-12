@@ -2,7 +2,7 @@
 import SimpleBar from "simplebar";
 import {onMounted, ref} from "vue";
 import ToggleDarkMode from "../../Components/ToggleDarkMode.vue";
-import {Link} from "@inertiajs/vue3";
+import {Link, usePage} from "@inertiajs/vue3";
 
 const notif = SimpleBar;
 onMounted((notif)=>{
@@ -605,7 +605,12 @@ console.log(notif)
                 <div class="user-box dropdown px-3">
                     <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret" href="#"
                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
+                        <img v-if="$page.props.auth.user.image" :src="$page.props.auth.user.image" alt="Admin"
+                             class="user-img">
+                        <img v-else
+                             :src="encodeURI('https://ui-avatars.com/api/?name='+$page.props.auth.user.name+'&background=random')"
+                             alt="Admin"
+                             class="user-img">
                         <div class="user-info">
                             <p class="user-name mb-0">{{ $page.props.auth.user.name }}</p>
                             <p class="designattion mb-0">Web Designer</p>
