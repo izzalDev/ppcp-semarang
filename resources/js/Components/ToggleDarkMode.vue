@@ -1,7 +1,8 @@
 <script setup>
 import Cookies from 'js-cookie';
 import {handleError, ref, watch} from "vue";
-let colorMode = ref(Cookies.get('theme'));
+
+const colorMode = ref(Cookies.get('theme')??'light-theme');
 
 const handleColorToggle = function (){
     if(colorMode.value==='light-theme'){

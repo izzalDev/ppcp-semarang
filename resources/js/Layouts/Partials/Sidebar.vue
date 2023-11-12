@@ -6,6 +6,7 @@ import MenuItem from "../../Components/MenuItem.vue";
 
 <template>
     <Sidebar logo="assets/images/logo-icon.png" title="syndron">
+        <MenuItem title="Profile" icon="bx bx-user-circle" href="/profile"/>
         <MenuItem title="contoh menu" icon="bx bx-home-alt" href="#">
             <SubMenuItem title="contoh menu" href="#"/>
         </MenuItem>

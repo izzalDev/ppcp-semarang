@@ -12,6 +12,13 @@ const handleMobileToggle = ()=> isToggled.value=!isToggled.value;
         <Sidebar/>
         <Navbar @mobileToggle="handleMobileToggle"/>
         <div class="overlay toggle-icon" @click="handleMobileToggle"></div>
-        <slot/>
+        <div class="page-wrapper">
+            <div class="page-content">
+                <slot/>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <p class="mb-0">Copyright © 2023. All right reserved.</p>
+        </footer>
     </div>
 </template>

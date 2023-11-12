@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\ProfileInformationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,10 +17,7 @@ use Inertia\Inertia;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return Inertia::render('Index');
-});
+Route::post('/auth/logout',[AuthController::class, 'destroy'])->middleware('auth')->name('logout');
 
 Route::prefix('auth')->middleware('guest')->group(function (){
     Route::get('/login',[AuthController::class,'create'])->name('login');
@@ -28,4 +26,9 @@ Route::prefix('auth')->middleware('guest')->group(function (){
     Route::post('/forgot-password',[ForgotPasswordController::class, 'store'])->name('password.email');
     Route::get('/reset-password/{token}',[NewPasswordController::class, 'create'])->name('password.reset');
     Route::post('/reset-password',[NewPasswordController::class, 'store'])->name('password.update');
+});
+
+Route::prefix('profile')->middleware('auth')->group(function (){
+    Route::get('/',[ProfileInformationController::class, 'show'])->name('profile');
+    Route::put('/update-information',[ProfileInformationController::class, 'update'])->name('profile-information.update');
 });

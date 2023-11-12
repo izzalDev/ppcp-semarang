@@ -2,6 +2,8 @@
 import SimpleBar from "simplebar";
 import {onMounted, ref} from "vue";
 import ToggleDarkMode from "../../Components/ToggleDarkMode.vue";
+import {Link} from "@inertiajs/vue3";
+
 const notif = SimpleBar;
 onMounted((notif)=>{
     notif = new SimpleBar(document.getElementById('notif'));
@@ -605,7 +607,7 @@ console.log(notif)
                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
                         <div class="user-info">
-                            <p class="user-name mb-0">Pauline Seitz</p>
+                            <p class="user-name mb-0">{{ $page.props.auth.user.name }}</p>
                             <p class="designattion mb-0">Web Designer</p>
                         </div>
                     </a>
@@ -628,8 +630,8 @@ console.log(notif)
                         <li>
                             <div class="dropdown-divider mb-0"></div>
                         </li>
-                        <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                            class="bx bx-log-out-circle"></i><span>Logout</span></a>
+                        <li><Link method="post" class="dropdown-item d-flex align-items-center" as="button" href="/auth/logout"><i
+                            class="bx bx-log-out-circle"></i><span>Logout</span></Link>
                         </li>
                     </ul>
                 </div>
