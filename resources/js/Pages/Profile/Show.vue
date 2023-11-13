@@ -4,6 +4,7 @@ import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationFor
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm.vue";
 import LogoutOtherBrowserSessionForm from "./Partials/LogoutOtherBrowserSessionForm.vue";
 import {router} from "@inertiajs/vue3";
+import {capWord} from "@composable/capitalize.js";
 
 defineOptions({layout: App})
 const props = defineProps({
@@ -41,14 +42,14 @@ console.log(props.auth)
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img v-if="props.auth.user.image" :src="props.auth.user.image" alt="Admin"
-                                     class="rounded-circle" width="110">
+                                     class="rounded-circle" width="110" height="110">
                                 <img v-else
                                      :src="encodeURI('https://ui-avatars.com/api/?name='+props.auth.user.name+'&background=random')"
                                      alt="Admin"
-                                     class="rounded-circle" width="110">
+                                     class="rounded-circle" width="110" height="110">
                                 <div class="mt-3">
                                     <h4>{{ props.auth.user.name }}</h4>
-                                    <p class="text-secondary mb-1">Full Stack Developer</p>
+                                    <p class="text-secondary mb-1">{{ capWord(props.auth.user.role[0]) }}</p>
                                     <p class="text-muted font-size-sm">{{ props.auth.user.email }}</p>
                                     <input type="file" @change="changePhoto" accept="image/*" ref="image" hidden>
                                     <button class="btn btn-outline-primary" @click="$refs.image.click">Change Photo

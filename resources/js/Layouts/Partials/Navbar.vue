@@ -2,7 +2,8 @@
 import SimpleBar from "simplebar";
 import {onMounted, ref} from "vue";
 import ToggleDarkMode from "../../Components/ToggleDarkMode.vue";
-import {Link, usePage} from "@inertiajs/vue3";
+import {Link} from "@inertiajs/vue3";
+import {capWord} from "@composable/capitalize.js";
 
 const notif = SimpleBar;
 onMounted((notif)=>{
@@ -613,7 +614,7 @@ console.log(notif)
                              class="user-img">
                         <div class="user-info">
                             <p class="user-name mb-0">{{ $page.props.auth.user.name }}</p>
-                            <p class="designattion mb-0">Web Designer</p>
+                            <p class="designattion mb-0">{{ capWord($page.props.auth.user.role[0]) }}</p>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
