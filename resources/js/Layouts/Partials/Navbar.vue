@@ -607,7 +607,7 @@ console.log(notif)
                     <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret" href="#"
                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img v-if="$page.props.auth.user.image" :src="$page.props.auth.user.image" alt="Admin"
-                             class="user-img">
+                             class="user-img bg-secondary">
                         <img v-else
                              :src="encodeURI('https://ui-avatars.com/api/?name='+$page.props.auth.user.name+'&background=random')"
                              alt="Admin"
