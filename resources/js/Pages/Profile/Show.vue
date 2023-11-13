@@ -42,7 +42,7 @@ console.log(props.auth)
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img v-if="props.auth.user.image" :src="props.auth.user.image" alt="Admin"
-                                     class="rounded-circle" width="110" height="110">
+                                     class="rounded-circle bg-secondary" width="110" height="110">
                                 <img v-else
                                      :src="encodeURI('https://ui-avatars.com/api/?name='+props.auth.user.name+'&background=random')"
                                      alt="Admin"
