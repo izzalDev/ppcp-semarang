@@ -1,11 +1,16 @@
 <template>
-  <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <template v-for="(link, index) in links">
+            <li class="page-item">
+                <Link class="page-link"
+                      :class="{'bg-primary text-white':link.active,'disabled':!link.url}"
+                      :href="link.url??'#'" v-html="link.label" :key="index" preserve-scroll
+                      preserve-state replace/>
+            </li>
+        </template>
     </ul>
-  </nav>
 </template>
+<script setup>
+import {Link} from "@inertiajs/vue3";
+defineProps({links:Object});
+</script>

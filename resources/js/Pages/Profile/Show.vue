@@ -3,8 +3,8 @@ import App from "../../Layouts/App.vue";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm.vue";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm.vue";
 import LogoutOtherBrowserSessionForm from "./Partials/LogoutOtherBrowserSessionForm.vue";
-import {router} from "@inertiajs/vue3";
-import {capWord} from "@composable/capitalize.js";
+import {router,Head} from "@inertiajs/vue3";
+import {capWord} from "../../composable/capitalize.js";
 
 defineOptions({layout: App})
 const props = defineProps({
@@ -42,7 +42,7 @@ console.log(props.auth)
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img v-if="props.auth.user.image" :src="props.auth.user.image" alt="Admin"
-                                     class="rounded-circle bg-secondary" width="110" height="110">
+                                     class="rounded-circle bg-light" width="110" height="110">
                                 <img v-else
                                      :src="encodeURI('https://ui-avatars.com/api/?name='+props.auth.user.name+'&background=random')"
                                      alt="Admin"

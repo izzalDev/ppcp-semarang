@@ -85,11 +85,12 @@
 <script setup>
 import {useForm} from "@inertiajs/vue3";
 import {onMounted, ref} from "vue";
+import {Modal} from "bootstrap";
 
 defineProps({sessions: Array});
 let modal = {};
 onMounted(()=>{
-    modal = new bootstrap.Modal(document.getElementById('password-confirm'));
+    modal = new Modal(document.getElementById('password-confirm'));
 })
 
 const isPasswordHide = ref(true);

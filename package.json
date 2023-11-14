@@ -21,6 +21,7 @@
         "metismenujs": "^1.4.0",
         "moment": "^2.29.4",
         "simplebar": "^6.2.5",
+        "sweetalert": "^2.1.2",
         "vue": "^3.3.8"
     }
 }

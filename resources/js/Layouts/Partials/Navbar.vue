@@ -3,7 +3,7 @@ import SimpleBar from "simplebar";
 import {onMounted, ref} from "vue";
 import ToggleDarkMode from "../../Components/ToggleDarkMode.vue";
 import {Link} from "@inertiajs/vue3";
-import {capWord} from "@composable/capitalize.js";
+import {capWord} from "../../composable/capitalize.js";
 
 const notif = SimpleBar;
 onMounted((notif)=>{
@@ -607,14 +607,14 @@ console.log(notif)
                     <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret" href="#"
                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img v-if="$page.props.auth.user.image" :src="$page.props.auth.user.image" alt="Admin"
-                             class="user-img bg-secondary">
+                             class="user-img bg-light">
                         <img v-else
                              :src="encodeURI('https://ui-avatars.com/api/?name='+$page.props.auth.user.name+'&background=random')"
                              alt="Admin"
                              class="user-img">
                         <div class="user-info">
                             <p class="user-name mb-0">{{ $page.props.auth.user.name }}</p>
-                            <p class="designattion mb-0">{{ capWord($page.props.auth.user.role[0]) }}</p>
+                            <p class="designattion mb-0">{{ capWord($page.props.auth.user.role[0]??'Unknown') }}</p>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">

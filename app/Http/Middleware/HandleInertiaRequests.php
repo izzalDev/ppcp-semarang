@@ -40,7 +40,7 @@ class HandleInertiaRequests extends Middleware
             'auth.user'=>fn()=>auth()->user()??null,
             'auth.user.role'=>fn()=>$request->user()?$request->user()->getRoleNames():null,
             'auth.user.permission'=>fn()=>$request->user()?$request->user()->getPermissionNames():null,
-            'session'=>fn()=>session()->all()??null,
+            'session'=>fn()=>$request->session()->all()??null,
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
                 'status' => fn () => $request->session()->get('status'),

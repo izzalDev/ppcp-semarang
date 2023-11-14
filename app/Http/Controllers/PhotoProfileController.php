@@ -13,7 +13,9 @@ class PhotoProfileController extends Controller
     public function update(Request $request)
     {
         if($request->file('image')){
-            Storage::delete(auth()->user()->image);
+            if(auth()->user()->image){
+                Storage::delete(auth()->user()->image);
+            }
             $file=$request->file('image')->store('/assets/profile-picture');
             auth()->user()->update(['image'=> $file]);
         }
