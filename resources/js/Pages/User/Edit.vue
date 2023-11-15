@@ -2,19 +2,18 @@
 import App from "../../Layouts/App.vue";
 import {Head, router, useForm, usePage, Link} from "@inertiajs/vue3";
 import swal from "sweetalert";
-defineProps({errors:Object})
+const {errors,user}=defineProps({errors:Object,user:Object})
 defineOptions({layout: App});
 const form = useForm({
-    name:null,
-    email:null,
+    name:user.name,
+    email:user.email,
 })
 const submit = ()=>{
-    router.post(route('user.store'),form,{
+    form.put(`/user/${user.id}`,{
         onSuccess:()=>{
-            form.reset();
             swal({
                 icon: "success",
-                title: "User has been created!",
+                title: "Success!",
                 text: usePage().props.session.message,
             });
         }
@@ -65,7 +64,7 @@ const submit = ()=>{
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary px-4">Create</button>
+                            <button type="submit" class="btn btn-primary px-4">Save</button>
                         </div>
                     </div>
                 </form>

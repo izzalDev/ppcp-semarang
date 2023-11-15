@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -84,7 +85,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user=User::find($id);
+        return Inertia::render('User/Edit',['user'=>$user]);
     }
 
     /**
@@ -92,7 +94,17 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email:dns|unique:users,email,' . $id,
+        ]);
+        $user->update(['name' => $request->name]);
+        if ($user->email != $request->email) {
+            $user->newEmail($request->email);
+            return back()->with('message', 'Please tell user to open new email and verify for make email change!');
+        }
+        return back()->with('message','User has been changed!');
     }
 
     /**

@@ -1,6 +1,6 @@
 <script setup>
 import App from "../../Layouts/App.vue";
-import {Head, router, usePage} from "@inertiajs/vue3";
+import {Head, router, usePage, Link} from "@inertiajs/vue3";
 import {reactive, watch} from "vue";
 import swal from "sweetalert";
 import UserListItem from "../../Components/UserListItem.vue";
@@ -33,7 +33,7 @@ const deleteUser = (id) => {
 }
 
 const deleteConfirmation = (id,name) => swal({
-    title: `Are you sure to delete ${name}?`,
+    title: `Are you sure?`,
     text: "Once deleted, you will not be able to recover this action!",
     icon: "warning",
     buttons: true,
@@ -63,6 +63,9 @@ const deleteConfirmation = (id,name) => swal({
     </div>
     <div class="card">
         <div class="card-body p-4">
+            <div class="d-flex mb-3">
+                <Link class="btn btn-primary px-4 ms-auto" href="/user/create"><i class="bx bx-plus"/>Create User</Link>
+            </div>
             <div class="d-flex align-items-center">
                 <span class="fs-6">Show </span>
                 <div class="col-auto mx-3">

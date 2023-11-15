@@ -1,8 +1,11 @@
 <script setup>
-
 import {capWord} from "../Composable/capitalize.js";
 import moment from "moment";
+import {router} from "@inertiajs/vue3";
 defineProps({user:Object})
+const edit = (id)=>{
+    router.get(`/user/${id}/edit`)
+}
 </script>
 
 <template>
@@ -29,7 +32,7 @@ defineProps({user:Object})
         <td>{{ moment.utc(user.created_at).local().fromNow() }}</td>
         <td>
             <div class="d-flex order-actions">
-                <a href="/user/edit" class=""><i class="bx bxs-edit-alt"></i></a>
+                <a @click="edit(user.id)"><i class="bx bxs-edit-alt"></i></a>
                 <a class="ms-4" @click="$emit('delete',user.id,user.name)"><i
                     class="bx bxs-trash-alt"></i></a>
             </div>
