@@ -1,64 +1,34 @@
 <script setup>
-import App from "../../Layouts/App.vue";
-import {Head, router, usePage, Link} from "@inertiajs/vue3";
-import {reactive, watch} from "vue";
-import swal from "sweetalert";
-import UserListItem from "../../Components/UserListItem.vue";
+import {Head, Link, router} from "@inertiajs/vue3";
 import Pagination from "../../Components/Pagination.vue";
-import _ from 'lodash';
-
-defineOptions({layout: App});
-const{users}=defineProps({users: Object});
-
+import CategoryItem from "./Partials/CategoryItem.vue";
+import {reactive, watch} from "vue";
+import _ from "lodash";
+const {categories} = defineProps({categories:Object});
 const params = reactive({
     search: null,
     perPage: 10,
 })
-
 watch(params,
     _.debounce(() => {
-        router.get('/user', params, {
+        router.get('/category', params, {
             replace: true,
             preserveScroll: true,
             preserveState: true,
         })
     },100)
 );
-
-const deleteUser = (id,name) => {
-    router.delete('user/' + id, {
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess:()=>{
-            swal(`Poof! ${name} has been deleted!`, {
-                icon: "success",
-            });
-        },
-    })
-}
-
-const deleteConfirmation = (id,name) => swal({
-    title: `Are you sure?`,
-    text: "Once deleted, you will not be able to recover this action!",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-}).then((willDelete) => {
-    if (willDelete) {
-        deleteUser(id,name)
-    }
-});
 </script>
 <template>
-    <Head title="User Management"/>
+    <Head title="Category"/>
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">User Management</div>
+        <div class="breadcrumb-title pe-3">Category</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-user-circle"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">User Management</li>
+                    <li class="breadcrumb-item active" aria-current="page">Category</li>
                 </ol>
             </nav>
         </div>
@@ -66,7 +36,7 @@ const deleteConfirmation = (id,name) => swal({
     <div class="card">
         <div class="card-body p-4">
             <div class="d-flex mb-3">
-                <Link class="btn btn-primary px-4 ms-auto" href="/user/create"><i class="bx bx-plus"/>Create User</Link>
+                <Link class="btn btn-primary px-4 ms-auto" href="/category/create"><i class="bx bx-plus"/>Create Category</Link>
             </div>
             <div class="d-flex align-items-center">
                 <span class="fs-6">Show </span>
@@ -88,26 +58,22 @@ const deleteConfirmation = (id,name) => swal({
                 <table class="table table-hover">
                     <thead class="table-light radius-10">
                     <tr>
-                        <th scope="col">User</th>
-                        <th scope="col">Roles</th>
-                        <th scope="col">Last Active</th>
-                        <th scope="col">Since</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Categories</th>
+                        <th scope="col" class="col-2">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <user-list-item v-for="(user,key) in users.data" :key="key" :user="user"
-                                    @delete="deleteConfirmation"/>
-                    <tr v-if="!users.data.length">
-                        <td colspan="5" class="text-center">
+                    <category-item v-for="(category,key) in categories.data" :key="key" :category="category"/>
+                    <tr v-if="!categories.data.length">
+                        <td colspan="2" class="text-center">
                             No data found
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="d-flex align-items-center">
-                    <div class="text-center">Showing {{ users.from }} to {{ users.to }} of {{ users.total }} entries</div>
-                    <pagination :links="users.links" class="ms-auto my-auto"/>
+                    <div class="text-center">Showing {{ categories.from }} to {{ categories.to }} of {{ categories.total }} entries</div>
+                    <pagination :links="categories.links" class="ms-auto my-auto"/>
                 </div>
             </div>
         </div>

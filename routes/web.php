@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\OtherBrowserSessionController;
@@ -40,6 +41,7 @@ Route::prefix('profile')->middleware('auth')->group(function () {
 
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::resource('/user', UserController::class);
+    Route::resource('/category', CategoryController::class);
 });
 
 Route::prefix('assets')->middleware('auth')->group(function () {

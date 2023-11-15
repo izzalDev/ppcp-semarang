@@ -22,16 +22,16 @@ const submit = ()=>{
 // console.log($session);
 </script>
 <template>
-    <Head title="Create User"/>
+    <Head title="Edit User"/>
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Create User</div>
+        <div class="breadcrumb-title pe-3">Edit User</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-user-circle"></i></a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">User Management</li>
-                    <li class="breadcrumb-item active" aria-current="page">Create User</li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit User</li>
                 </ol>
             </nav>
         </div>
@@ -40,7 +40,7 @@ const submit = ()=>{
         <div class="card">
             <div class="card-body p-5">
                 <div class="d-flex">
-                    <h5 class="mb-2">Create New User</h5>
+                    <h5 class="mb-2">Edit User</h5>
                     <Link replace class="btn btn-primary px-4 ms-auto" href="/user"><i class="bx bx-arrow-back"/>Back</Link>
                 </div>
                 <div class="text-center mb-5">
