@@ -1,7 +1,7 @@
 <script setup>
 
 import {capWord} from "../Composable/capitalize.js";
-import moment from "moment/moment.js";
+import moment from "moment";
 defineProps({user:Object})
 </script>
 
@@ -30,7 +30,7 @@ defineProps({user:Object})
         <td>
             <div class="d-flex order-actions">
                 <a href="/user/edit" class=""><i class="bx bxs-edit-alt"></i></a>
-                <a class="ms-4" @click="$emit('delete',user.id)"><i
+                <a class="ms-4" @click="$emit('delete',user.id,user.name)"><i
                     class="bx bxs-trash-alt"></i></a>
             </div>
         </td>

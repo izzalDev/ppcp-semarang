@@ -22,7 +22,7 @@ watch(() => [params.search, params.perPage],
             preserveScroll: true,
             preserveState: true,
         })
-    },200)
+    },100)
 );
 console.log(usePage().props.users);
 const deleteUser = (id) => {
@@ -32,8 +32,8 @@ const deleteUser = (id) => {
     })
 }
 
-const deleteConfirmation = (id) => swal({
-    title: "Are you sure?",
+const deleteConfirmation = (id,name) => swal({
+    title: `Are you sure to delete ${name}?`,
     text: "Once deleted, you will not be able to recover this action!",
     icon: "warning",
     buttons: true,
@@ -41,7 +41,7 @@ const deleteConfirmation = (id) => swal({
 }).then((willDelete) => {
     if (willDelete) {
         deleteUser(id)
-        swal("Poof! User has been deleted!", {
+        swal(`Poof! ${name} has been deleted!`, {
             icon: "success",
         });
     }
@@ -93,10 +93,15 @@ const deleteConfirmation = (id) => swal({
                     <tbody>
                     <user-list-item v-for="(user,key) in users.data" :key="key" :user="user"
                                     @delete="deleteConfirmation"/>
+                    <tr v-if="!users.data.length">
+                        <td colspan="5" class="text-center">
+                            No data found
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
                 <div class="d-flex align-items-center">
-                    <div>Showing {{ users.from }} to {{ users.to }} of {{ users.total }} entries</div>
+                    <div class="text-center">Showing {{ users.from }} to {{ users.to }} of {{ users.total }} entries</div>
                     <pagination :links="users.links" class="ms-auto my-auto"/>
                 </div>
             </div>

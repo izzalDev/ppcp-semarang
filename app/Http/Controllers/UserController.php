@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -13,20 +16,31 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->query('search');
+        $words = explode(' ', $request->query('search'));
         $perPage = $request->query('perPage') ?? 10;
         $users = User::query()
             ->with('roles:name')
-            ->where('name', 'LIKE', '%' . $search . '%')
-            ->orWhere('email', 'LIKE', '%' . $search . '%')
-            ->orwhereHas('roles', function ($query) use ($search) {
-                $query->where('name', 'LIKE', '%' . $search . '%');
+            ->where(function ($query) use ($words){
+                foreach ($words as $key){
+                    $query->orWhere('name','LIKE','%'.$key.'%');
+                }
+            })
+            ->orWhere(function ($query) use ($words){
+                foreach ($words as $key){
+                    $query->orWhere('email','LIKE','%'.$key.'%');
+                }
+            })
+            ->orwhereHas('roles', function ($query) use ($words) {
+                foreach ($words as $key){
+                    $query->where('name','LIKE','%'.$key.'%');
+                }
             })
             ->orderBy('last_seen', 'desc')
+            ->latest()
             ->paginate($perPage, ['id', 'name', 'email', 'image', 'last_seen', 'created_at'])
             ->withQueryString();
         return Inertia::render('User/Index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -35,7 +49,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('User/Create');
     }
 
     /**
@@ -43,7 +57,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'=>'required',
+            'email'=>'required|unique:users,email|email:dns',
+        ]);
+        $validated['password'] = Str::random();
+        User::create($validated);
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with(['message'=>'Please tell user to check email for verify and change password'])
+            : back()->withErrors(['error'=>__($status)]);
     }
 
     /**
@@ -51,7 +76,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        abort(404);
     }
 
     /**

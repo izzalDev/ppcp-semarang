@@ -4,7 +4,7 @@ import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationFor
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm.vue";
 import LogoutOtherBrowserSessionForm from "./Partials/LogoutOtherBrowserSessionForm.vue";
 import {router,Head} from "@inertiajs/vue3";
-import {capWord} from "../../composable/capitalize.js";
+import {capEach, capWord} from "../../composable/capitalize.js";
 
 defineOptions({layout: App})
 const props = defineProps({
@@ -18,7 +18,7 @@ const changePhoto = (e) => {
         image: e.target.files[0],
     })
 }
-console.log(props.auth)
+
 </script>
 <template>
     <Head title="Profile"/>
@@ -49,7 +49,7 @@ console.log(props.auth)
                                      class="rounded-circle" width="110" height="110">
                                 <div class="mt-3">
                                     <h4>{{ props.auth.user.name }}</h4>
-                                    <p class="text-secondary mb-1">{{ capWord(props.auth.user.role[0]) }}</p>
+                                    <p class="text-secondary mb-1 text-capitalize">{{ props.auth.user.role.join(', ') }}</p>
                                     <p class="text-muted font-size-sm">{{ props.auth.user.email }}</p>
                                     <input type="file" @change="changePhoto" accept="image/*" ref="image" hidden>
                                     <button class="btn btn-outline-primary" @click="$refs.image.click">Change Photo
