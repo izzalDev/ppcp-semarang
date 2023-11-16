@@ -15,7 +15,6 @@ class CategoryController extends Controller
     {
         $words=explode(' ', $request->query('search'));
         $perPage=$request->query('perPage')??10;
-//        dd($perPage);
         $categories = Category::query()
             ->where(function ($query) use ($words) {
                 foreach ($words as $key) {

@@ -15,10 +15,9 @@ const handleMobileToggle = ()=> isToggled.value=!isToggled.value;
         <div class="page-wrapper">
             <div class="page-content">
                 <slot/>
+                <div>Made with <span style="color: #e25555;">&#9829;</span> by Rizal Fadlullah</div>
             </div>
         </div>
-        <footer class="page-footer">
-            <p class="mb-0">Copyright © 2023. All right reserved.</p>
-        </footer>
+
     </div>
 </template>

@@ -6,6 +6,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\OtherBrowserSessionController;
 use App\Http\Controllers\PhotoProfileController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileInformationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,7 @@ Route::prefix('profile')->middleware('auth')->group(function () {
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::resource('/user', UserController::class);
     Route::resource('/category', CategoryController::class);
+    Route::resource('/product', ProductController::class);
 });
 
 Route::prefix('assets')->middleware('auth')->group(function () {
