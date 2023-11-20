@@ -82,8 +82,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = Category::find($id);
-        $user->delete();
+        $category = Category::find($id);
+        $category->delete();
         return back();
     }
 }

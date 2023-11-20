@@ -36,7 +36,7 @@ watch(params,
     <div class="card">
         <div class="card-body p-4">
             <div class="d-flex mb-3">
-                <Link class="btn btn-primary px-4 ms-auto" href="/category/create"><i class="bx bx-plus"/>Create Product</Link>
+                <Link class="btn btn-primary px-4 ms-auto" href="/product/create"><i class="bx bx-plus"/>Create Product</Link>
             </div>
             <div class="d-flex align-items-center">
                 <span class="fs-6">Show </span>
@@ -60,9 +60,9 @@ watch(params,
                     <tr>
                         <th scope="col">Products</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stocks</th>
-                        <th scope="col" class="col-2">Action</th>
+                        <th scope="col" class="col-2">Price</th>
+                        <th scope="col" class="col-2">Stocks</th>
+                        <th scope="col" class="col-2 ps-3">Action</th>
                     </tr>
                     </thead>
                     <tbody>

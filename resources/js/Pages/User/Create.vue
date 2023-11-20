@@ -1,16 +1,17 @@
 <script setup>
 import App from "../../Layouts/App.vue";
-import {Head, router, useForm, usePage, Link} from "@inertiajs/vue3";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/vue3";
 import swal from "sweetalert";
-defineProps({errors:Object})
+
+defineProps({errors: Object})
 defineOptions({layout: App});
 const form = useForm({
-    name:null,
-    email:null,
+    name: null,
+    email: null,
 })
-const submit = ()=>{
-    router.post(route('user.store'),form,{
-        onSuccess:()=>{
+const submit = () => {
+    router.post(route('user.store'), form, {
+        onSuccess: () => {
             form.reset();
             swal({
                 icon: "success",
@@ -42,24 +43,29 @@ const submit = ()=>{
             <div class="card-body p-5">
                 <div class="d-flex">
                     <h5 class="mb-2">Create New User</h5>
-                    <Link replace class="btn btn-primary px-4 ms-auto" href="/user"><i class="bx bx-arrow-back"/>Back</Link>
+                    <Link replace class="btn btn-primary px-4 ms-auto" href="/user"><i class="bx bx-arrow-back"/>Back
+                    </Link>
                 </div>
                 <div class="text-center mb-5">
-                    <img :src="`https://ui-avatars.com/api/?name=${form.name}&background=random`" alt="Admin" class="rounded-circle" width="200" height="200">
+                    <img :src="`https://ui-avatars.com/api/?name=${form.name}&background=random`" alt="Admin"
+                         class="rounded-circle" width="200" height="200">
                 </div>
                 <form @submit.prevent="submit">
                     <div class="row mb-3">
                         <div class="col-sm-3"><h6 class="mb-0">Name</h6></div>
                         <div class="col-sm-9 text-secondary">
-                            <input v-model="form.name"  type="text" class="form-control" :class="{'is-invalid':errors.name}">
-                            <div class="invalid-feedback">{{errors.name}}</div>
+                            <input v-model="form.name" type="text" class="form-control"
+                                   :class="{'is-invalid':errors.name}" placeholder="Full name">
+                            <div class="invalid-feedback">{{ errors.name }}</div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
                         <div class="col-sm-9 text-secondary">
-                            <input v-model="form.email" type="text" class="form-control" :class="{'is-invalid':errors.email}">
-                            <div class="invalid-feedback">{{errors.email}}</div>
+                            <input v-model="form.email" type="text" class="form-control"
+                                   :class="{'is-invalid':errors.email}"
+                            placeholder="test@example.com">
+                            <div class="invalid-feedback">{{ errors.email }}</div>
                         </div>
                     </div>
                     <div class="row">

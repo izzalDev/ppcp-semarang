@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -33,7 +34,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return Inertia::render('Product/Create',['categories'=>$categories]);
     }
 
     /**
@@ -41,7 +43,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'=>'required|unique:products,name',
+            'category'=>'required|exists:categories,id',
+            'price'=>'required|integer',
+            'stocks'=>'required|integer',
+        ]);
+        $validated['quantity']=$validated['stocks'];
+        $validated['category_id']=$validated['category'];
+        unset($validated['stocks'],$validated['category']);
+        Product::create($validated);
+        return back()->with('message','Product has been created');
     }
 
     /**
@@ -57,7 +69,12 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product=Product::find($id);
+        $categories=Category::all();
+        return Inertia::render('Product/Edit',[
+            'product'=>$product,
+            'categories'=>$categories,
+        ]);
     }
 
     /**
@@ -65,7 +82,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name'=>'required|unique:products,name,'.$id,
+            'category'=>'required|exists:categories,id',
+            'price'=>'required|integer',
+            'stocks'=>'required|integer',
+        ]);
+        $validated['quantity']=$validated['stocks'];
+        $validated['category_id']=$validated['category'];
+        unset($validated['stocks'],$validated['category']);
+        Product::find($id)->update($validated);
+        return back()->with('message','Product has been updated');
     }
 
     /**
@@ -73,6 +100,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return back()->with('message','product deleted');
     }
 }

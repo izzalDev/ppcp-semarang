@@ -1,15 +1,16 @@
 <script setup>
 import App from "../../Layouts/App.vue";
-import {Head, router, useForm, usePage, Link} from "@inertiajs/vue3";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/vue3";
 import swal from "sweetalert";
-defineProps({errors:Object})
+
+defineProps({errors: Object})
 defineOptions({layout: App});
 const form = useForm({
-    name:null,
+    name: null,
 })
-const submit = ()=>{
-    router.post(route('category.store'),form,{
-        onSuccess:()=>{
+const submit = () => {
+    router.post(route('category.store'), form, {
+        onSuccess: () => {
             form.reset();
             swal({
                 icon: "success",
@@ -41,14 +42,17 @@ const submit = ()=>{
             <div class="card-body p-5">
                 <div class="d-flex mb-5">
                     <h5 class="mb-2">Create Category</h5>
-                    <Link replace class="btn btn-primary px-4 ms-auto" href="/category"><i class="bx bx-arrow-back"/>Back</Link>
+                    <Link replace class="btn btn-primary px-4 ms-auto" href="/category"><i class="bx bx-arrow-back"/>Back
+                    </Link>
                 </div>
                 <form @submit.prevent="submit">
                     <div class="row mb-3">
                         <div class="col-sm-3"><h6 class="mb-0">Name</h6></div>
                         <div class="col-sm-9 text-secondary">
-                            <input v-model="form.name"  type="text" class="form-control" :class="{'is-invalid':errors.name}">
-                            <div class="invalid-feedback">{{errors.name}}</div>
+                            <input v-model="form.name" type="text" class="form-control"
+                                   :class="{'is-invalid':errors.name}"
+                            placeholder="Category Name">
+                            <div class="invalid-feedback">{{ errors.name }}</div>
                         </div>
                     </div>
                     <div class="row">

@@ -33,12 +33,12 @@ const onDelete = (id) => {
     <tr>
         <th>{{ product.name }}</th>
         <td>{{ product.category.name}}</td>
-        <td >{{ Number(product.price).toLocaleString('id') }}</td>
-        <td>{{ product.stocks }}</td>
+        <td class="text-end">Rp. {{ Number(product.price).toLocaleString('id') }}</td>
+        <td class="text-end">{{ Number(product.quantity).toLocaleString('id') }}</td>
         <td>
-            <div class="d-flex order-actions">
-                <a @click=""><i class="bx bxs-edit-alt"></i></a>
-                <a class="ms-4" @click=""><i
+            <div class="d-flex order-actions ms-3">
+                <a @click="edit(product.id)"><i class="bx bxs-edit-alt"></i></a>
+                <a class="ms-4" @click="onDelete(product.id)"><i
                     class="bx bxs-trash-alt"></i></a>
             </div>
         </td>

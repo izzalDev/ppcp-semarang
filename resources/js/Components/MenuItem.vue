@@ -10,7 +10,7 @@ const hasChild = useSlots().default;
 const collapse = ref('collapse');
 </script>
 <template>
-    <li>
+    <li :class="{ 'mm-active': $page.url === href }">
         <a v-if="hasChild" :class="{'has-arrow':hasChild}">
             <div class="parent-icon"><i :class="icon"></i>
             </div>
