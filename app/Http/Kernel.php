@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Session\Middleware\AuthenticateSession;
 
 class Kernel extends HttpKernel
 {
@@ -38,6 +39,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HandleInertiaRequests::class,
             \App\Http\Middleware\LastUserActivity::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
         ],
 
         'api' => [

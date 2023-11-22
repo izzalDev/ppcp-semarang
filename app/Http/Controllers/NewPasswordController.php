@@ -60,7 +60,9 @@ class NewPasswordController extends Controller
             'password_confirmation' => 'required',
         ]);
 
+        auth()->logoutOtherDevices($request->password);
         auth()->user()->update(['password'=>Hash::make($request->input('password'))]);
+
         return back()->with('success','Your password has been updated');
     }
 }

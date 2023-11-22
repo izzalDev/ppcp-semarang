@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Rules\CurrentPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OtherBrowserSessionController extends Controller
 {
@@ -18,5 +19,6 @@ class OtherBrowserSessionController extends Controller
             ->where('user_id', $request->user()->getAuthIdentifier())
             ->where('id', '!=', $request->session()->getId())
             ->delete();
+        auth()->logoutOtherDevices($request->password);
     }
 }
